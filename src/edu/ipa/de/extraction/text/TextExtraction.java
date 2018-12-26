@@ -1,3 +1,4 @@
+package edu.ipa.de.extraction.text;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -10,7 +11,7 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.encryption.InvalidPasswordException;
 import org.apache.pdfbox.text.PDFTextStripper;
 
-public class PDFExtractor {
+public class TextExtraction {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
