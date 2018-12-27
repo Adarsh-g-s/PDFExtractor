@@ -16,6 +16,7 @@ public class TextExtraction {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		File file = new File("/home/rfa-ag/Downloads/TextMining/Dataset/ISO-TS-15066.pdf"); 
+		SectionTextExtraction secTextExtraction = new SectionTextExtraction();
 		try {
 			PDDocument document = PDDocument.load(file);
 			PDFTextStripper pdfStripper = new PDFTextStripper();
@@ -37,7 +38,7 @@ public class TextExtraction {
 			String text = pdfStripper.getText(document);
 //			System.out.println(text);
 			
-			String cleanedText = cleanFootAndSideNotes(text);
+			String cleanedText = secTextExtraction.cleanFootAndSideNotes(text);
 //			System.out.println(cleanedText);
 //		    sectionIdentifier(text);
 		    
@@ -56,11 +57,11 @@ public class TextExtraction {
 
 	}
 
-	private static String cleanFootAndSideNotes(String text) {
-		/* TODO Code to clear Foot and Side notes from extracted text
+/*	private static String cleanFootAndSideNotes(String text) {
+		 TODO Code to clear Foot and Side notes from extracted text
 		Do pattern matching to find this string "TECHNICAL SPECIFICATION ISO/TS 15066:2016(E)"
 		and remove all contents found after it.
-		*/
+		
 		String allContentsInBetween = null;
 		String allContentsInBetween1 = null;
 		String allContentsInBetween2 = null;
@@ -87,14 +88,14 @@ public class TextExtraction {
 			System.out.println(allContentsInBetween1);
 		}
 		
-		/*Remember for subsequent pages the complete header is not present, only "ISO/TS 15066:2016(E)"
+		Remember for subsequent pages the complete header is not present, only "ISO/TS 15066:2016(E)"
 		Check for this pattern, remove it and keep the other contents.
-		*/
+		
 		return allContentsInBetween;
 		
 	}
-
-	private static void sectionIdentifier(String text) {
+*/
+	/*private static void sectionIdentifier(String text) {
 		// TODO Auto-generated method stub
 //		text = "Robots and robotic devices — Collaborative robots\n" + 
 //				"1 Scope\n" + 
@@ -113,16 +114,16 @@ public class TextExtraction {
 		 String allContentsInBetween = StringUtils.substringBetween(text, "1 Scope","2 Normative references");
 		 System.out.println(allContentsInBetween);
 		 writeTheContentsToATextFile(allContentsInBetween);
-	}
+	}*/
 
-	private static boolean isContain(String source, String subItem){
+	protected static boolean isContain(String source, String subItem){
 	         String pattern = "\\b"+subItem+"\\b";
 	         Pattern p=Pattern.compile(pattern);
 	         Matcher m=p.matcher(source);
 	         return m.find();
 	    }
 	
-	  private static void writeTheContentsToATextFile(String allContentsInBetween) {
+	protected static void writeTheContentsToATextFile(String allContentsInBetween) {
 		  try (PrintWriter out = new PrintWriter("TermsAndDefinitions.txt")) {
 			    out.println(allContentsInBetween);
 			} catch (FileNotFoundException e) {
