@@ -52,9 +52,9 @@ public class TextExtraction {
 		
 		if(text.contains(Constants.header)) {
 			System.out.println("Match found! ");
-			System.out.println(isContain(text, Constants.subHeader));
-			System.out.println(isContain(text, Constants.footerPattern1));
-			System.out.println(isContain(text, Constants.footerPattern2));
+//			System.out.println(isContain(text, Constants.subHeader));
+//			System.out.println(isContain(text, Constants.footerPattern1));
+//			System.out.println(isContain(text, Constants.footerPattern2));
 
 			allContentsInBetween = StringUtils.substringBetween(text, Constants.sideNote2, Constants.header);
 			allContentsInBetween1 = StringUtils.substringBetween(text, Constants.subHeader, Constants.footerPattern2);
@@ -67,9 +67,6 @@ public class TextExtraction {
 			
 		}else if(text.contains(Constants.subHeader)) {
 			System.out.println("Match found! ");
-			System.out.println(isContain(text, Constants.subHeader));
-			System.out.println(isContain(text, Constants.footerPattern1));
-			System.out.println(isContain(text, Constants.footerPattern2));
 			
 			
 			allContentsInBetween = StringUtils.substringBetween(text, Constants.subHeader, Constants.footerPattern3);
