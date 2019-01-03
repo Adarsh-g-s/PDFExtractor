@@ -1,4 +1,4 @@
-package edu.ipa.de.extraction.text;
+package org.ipa.de.extraction.text;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.regex.Matcher;

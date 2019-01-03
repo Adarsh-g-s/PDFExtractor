@@ -1,4 +1,4 @@
-package edu.ipa.de.extraction.text;
+package org.ipa.de.extraction.text;
 
 import java.io.File;
 import java.io.IOException;

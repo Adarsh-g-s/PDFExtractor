@@ -1,4 +1,4 @@
-package edu.ipa.de.extraction.text;
+package org.ipa.de.extraction.text;
 
 import org.apache.commons.lang3.StringUtils;
 
