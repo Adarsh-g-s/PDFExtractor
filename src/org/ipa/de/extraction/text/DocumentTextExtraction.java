@@ -16,8 +16,8 @@ public class DocumentTextExtraction {
 			PDDocument document = PDDocument.load(file);
 			PDFTextStripper pdfStripper = new PDFTextStripper();
 			
-			pdfStripper.setStartPage(7);
-			pdfStripper.setEndPage(8);
+			pdfStripper.setStartPage(9);
+			pdfStripper.setEndPage(10);
 			
 			textContentToBeCleaned = pdfStripper.getText(document);
 			

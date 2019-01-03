@@ -46,34 +46,50 @@ public class TextExtraction {
 		String allContentsInBetween = null;
 		String allContentsInBetween1 = null;
 		String allContentsInBetween2 = null;
-		final String header = "TECHNICAL SPECIFICATION ISO/TS 15066:2016(E)";
-		final String subHeader = "ISO/TS 15066:2016(E)";
-		final String subHeader2 = "© ISO 2016 – All rights reserved 1ISO/TS 15066:2016(E)";
-		final String footerPattern1 = "© ISO 2016 – All rights reserved 1";
-		final String footerPattern2 = "2 © ISO 2016 – All rights reserved";
 		
-		
+//		System.out.println(text);
 		//Check if the TEXT contains the header substring
 		
-		if(text.contains(header)) {
+		if(text.contains(Constants.header)) {
 			System.out.println("Match found! ");
-			System.out.println(isContain(text, subHeader));
-			System.out.println(isContain(text, footerPattern2));
-//			allContentsInBetween = StringUtils.substringBetween(text, "1 Scope",header);
-			allContentsInBetween1 = StringUtils.substringBetween(text, subHeader, footerPattern2);
-//			System.out.println(allContentsInBetween);
-//			System.out.println(allContentsInBetween1);
-			allContentsInBetween2 = StringUtils.substringBetween(allContentsInBetween1, footerPattern1, subHeader);
-//			System.out.println(allContentsInBetween2);
+			System.out.println(isContain(text, Constants.subHeader));
+			System.out.println(isContain(text, Constants.footerPattern1));
+			System.out.println(isContain(text, Constants.footerPattern2));
+
+			allContentsInBetween = StringUtils.substringBetween(text, Constants.sideNote2, Constants.header);
+			allContentsInBetween1 = StringUtils.substringBetween(text, Constants.subHeader, Constants.footerPattern2);
+
+			allContentsInBetween2 = StringUtils.substringBetween(allContentsInBetween1, Constants.footerPattern1, Constants.subHeader);
+			
 			allContentsInBetween1=allContentsInBetween1.replace(allContentsInBetween2, "");
-			allContentsInBetween1=allContentsInBetween1.replace(subHeader2,"");
-//			System.out.println(allContentsInBetween1);
+			allContentsInBetween1=allContentsInBetween1.replace(Constants.subHeader2,"");
+			allContentsInBetween += allContentsInBetween1;
+			
+		}else if(text.contains(Constants.subHeader)) {
+			System.out.println("Match found! ");
+			System.out.println(isContain(text, Constants.subHeader));
+			System.out.println(isContain(text, Constants.footerPattern1));
+			System.out.println(isContain(text, Constants.footerPattern2));
+			
+			
+			allContentsInBetween = StringUtils.substringBetween(text, Constants.subHeader, Constants.footerPattern3);
+			
+			//Remove allContentsInBetween from text.
+			
+			allContentsInBetween1 = StringUtils.substringBetween(text, Constants.subHeader, Constants.footerPattern4);
+			allContentsInBetween1 = allContentsInBetween1.replace(allContentsInBetween, "");
+			//Extract only content between the footerPattern3 and subHeader and remove this content from allContentsInBetween1
+			
+			allContentsInBetween2 = StringUtils.substringBetween(allContentsInBetween1, Constants.footerPattern3, Constants.subHeader);
+			allContentsInBetween1 = allContentsInBetween1.replace(allContentsInBetween2, "");
+			allContentsInBetween1 = allContentsInBetween1.replace(Constants.subHeader3, "");
+			allContentsInBetween += allContentsInBetween1;
 		}
 		
 		/*Remember for subsequent pages the complete header is not present, only "ISO/TS 15066:2016(E)"
 		Check for this pattern, remove it and keep the other contents.
 		*/
-		return allContentsInBetween1;
+		return allContentsInBetween;
 		
 	}
 
