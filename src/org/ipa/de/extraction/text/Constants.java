@@ -10,7 +10,11 @@ public class Constants {
 	public static final String footerPattern2 = "2 © ISO 2016 – All rights reserved";
 	public static final String footerPattern3 = "© ISO 2016 – All rights reserved 3";
 	public static final String footerPattern4 = "4 © ISO 2016 – All rights reserved";
+	public static final String footerPattern5 = "© ISO 2016 – All rights reserved 5";
+	public static final String footerPattern6 = "6 © ISO 2016 – All rights reserved";
+	public static final String footerPattern7 = "© ISO 2016 – All rights reserved 7";
 	public static final String subHeader3 = "© ISO 2016 – All rights reserved 3ISO/TS 15066:2016(E)";
+	public static final String subHeader4 = "© ISO 2016 – All rights reserved 5ISO/TS 15066:2016(E)";
 	public static final String sideNote1 = "B55EB1B3C7662F79D1B59483A53B9F2F82C98BEEB79395946AC566B6CDF0148328DA7E29C2DB4A9C98A56EB84751C09DF42982F151E73615912024BE33C078D0313FF49141000AFE4F2B010705BB25778CEF0775AAABBB96E5706ADD5D94523CEC09BC81B38ED5B3A256A131A197AE3E87";
 	public static final String sideNote2 = "N\n" + 
 			"o\n" + 

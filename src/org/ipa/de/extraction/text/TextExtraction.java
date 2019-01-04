@@ -19,7 +19,7 @@ public class TextExtraction {
 		
 		textAfterCleaning = cleanFootAndSideNotes(textBeforeCleaning);
 		System.out.println(textAfterCleaning);
-
+//		writeTheContentsToATextFile(textAfterCleaning);
 	}
 
 
@@ -31,7 +31,7 @@ public class TextExtraction {
 	    }
 	
 	protected static void writeTheContentsToATextFile(String allContentsInBetween) {
-		  try (PrintWriter out = new PrintWriter("TermsAndDefinitions.txt")) {
+		  try (PrintWriter out = new PrintWriter("TS15066.txt")) {
 			    out.println(allContentsInBetween);
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
@@ -40,8 +40,10 @@ public class TextExtraction {
 	
 	protected static String cleanFootAndSideNotes(String text) {
 		/* TODO Code to clear Foot and Side notes from extracted text
-		Do pattern matching to find this string "TECHNICAL SPECIFICATION ISO/TS 15066:2016(E)"
-		and remove all contents found after it.
+		Do pattern matching to find sub strings and remove/extract all contents found after/before it.
+		
+		2 pages at a time.
+		
 		*/
 		String allContentsInBetween = null;
 		String allContentsInBetween1 = null;
@@ -55,8 +57,12 @@ public class TextExtraction {
 //			System.out.println(isContain(text, Constants.subHeader));
 //			System.out.println(isContain(text, Constants.footerPattern1));
 //			System.out.println(isContain(text, Constants.footerPattern2));
+			
+			/*
+			 * Text extraction from the first 2 pages of ISO doc i.e. page#1-2.
+			 */
 
-			allContentsInBetween = StringUtils.substringBetween(text, Constants.sideNote2, Constants.header);
+			allContentsInBetween = StringUtils.substringBetween(text, "\n"  , Constants.header);
 			allContentsInBetween1 = StringUtils.substringBetween(text, Constants.subHeader, Constants.footerPattern2);
 
 			allContentsInBetween2 = StringUtils.substringBetween(allContentsInBetween1, Constants.footerPattern1, Constants.subHeader);
@@ -67,19 +73,26 @@ public class TextExtraction {
 			
 		}else if(text.contains(Constants.subHeader)) {
 			System.out.println("Match found! ");
+			/* To ensure this code works for new pages change/add 3 variables in Constants.java
+			 * 1. footerPatternOdd#
+			 * 2. footerPatternEven#
+			 * 3. subHeader#
+			 * similar to already existing ones.
+			 * 
+			 * Text extraction from the later pages of ISO doc i.e. page#3-4 onwards, always in pairs of odd-even.
+			 */
 			
-			
-			allContentsInBetween = StringUtils.substringBetween(text, Constants.subHeader, Constants.footerPattern3);
+			allContentsInBetween = StringUtils.substringBetween(text, Constants.subHeader, Constants.footerPattern5);
 			
 			//Remove allContentsInBetween from text.
 			
-			allContentsInBetween1 = StringUtils.substringBetween(text, Constants.subHeader, Constants.footerPattern4);
+			allContentsInBetween1 = StringUtils.substringBetween(text, Constants.subHeader, Constants.footerPattern6);
 			allContentsInBetween1 = allContentsInBetween1.replace(allContentsInBetween, "");
 			//Extract only content between the footerPattern3 and subHeader and remove this content from allContentsInBetween1
 			
-			allContentsInBetween2 = StringUtils.substringBetween(allContentsInBetween1, Constants.footerPattern3, Constants.subHeader);
+			allContentsInBetween2 = StringUtils.substringBetween(allContentsInBetween1, Constants.footerPattern5, Constants.subHeader);
 			allContentsInBetween1 = allContentsInBetween1.replace(allContentsInBetween2, "");
-			allContentsInBetween1 = allContentsInBetween1.replace(Constants.subHeader3, "");
+			allContentsInBetween1 = allContentsInBetween1.replace(Constants.subHeader4, "");
 			allContentsInBetween += allContentsInBetween1;
 		}
 		
