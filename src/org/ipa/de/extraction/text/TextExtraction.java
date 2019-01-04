@@ -1,5 +1,7 @@
 package org.ipa.de.extraction.text;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -18,8 +20,8 @@ public class TextExtraction {
 //		System.out.println(textBeforeCleaning);
 		
 		textAfterCleaning = cleanFootAndSideNotes(textBeforeCleaning);
-		System.out.println(textAfterCleaning);
-//		writeTheContentsToATextFile(textAfterCleaning);
+//		System.out.println(textAfterCleaning);
+		writeTheContentsToATextFile(textAfterCleaning);
 	}
 
 
@@ -31,7 +33,7 @@ public class TextExtraction {
 	    }
 	
 	protected static void writeTheContentsToATextFile(String allContentsInBetween) {
-		  try (PrintWriter out = new PrintWriter("TS15066.txt")) {
+		  try (PrintWriter out = new PrintWriter(new FileOutputStream(new File("TS15066.txt"), true))) {
 			    out.println(allContentsInBetween);
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
@@ -82,17 +84,17 @@ public class TextExtraction {
 			 * Text extraction from the later pages of ISO doc i.e. page#3-4 onwards, always in pairs of odd-even.
 			 */
 			
-			allContentsInBetween = StringUtils.substringBetween(text, Constants.subHeader, Constants.footerPattern5);
+			allContentsInBetween = StringUtils.substringBetween(text, Constants.subHeader, Constants.footerPattern3);
 			
 			//Remove allContentsInBetween from text.
 			
-			allContentsInBetween1 = StringUtils.substringBetween(text, Constants.subHeader, Constants.footerPattern6);
+			allContentsInBetween1 = StringUtils.substringBetween(text, Constants.subHeader, Constants.footerPattern4);
 			allContentsInBetween1 = allContentsInBetween1.replace(allContentsInBetween, "");
 			//Extract only content between the footerPattern3 and subHeader and remove this content from allContentsInBetween1
 			
-			allContentsInBetween2 = StringUtils.substringBetween(allContentsInBetween1, Constants.footerPattern5, Constants.subHeader);
+			allContentsInBetween2 = StringUtils.substringBetween(allContentsInBetween1, Constants.footerPattern3, Constants.subHeader);
 			allContentsInBetween1 = allContentsInBetween1.replace(allContentsInBetween2, "");
-			allContentsInBetween1 = allContentsInBetween1.replace(Constants.subHeader4, "");
+			allContentsInBetween1 = allContentsInBetween1.replace(Constants.subHeader3, "");
 			allContentsInBetween += allContentsInBetween1;
 		}
 		
