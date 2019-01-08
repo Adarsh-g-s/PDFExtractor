@@ -20,8 +20,8 @@ public class DocumentTextExtraction {
 			 * Start of the PDF(ISO TS 15066) is from page#7, pass consecutive pages at once in the odd-even form e.x. 7-8, 9-10 etc
 			 */
 			
-			pdfStripper.setStartPage(37);
-			pdfStripper.setEndPage(38);
+			pdfStripper.setStartPage(35);
+			pdfStripper.setEndPage(36);
 			
 			textContentToBeCleaned = pdfStripper.getText(document);
 			

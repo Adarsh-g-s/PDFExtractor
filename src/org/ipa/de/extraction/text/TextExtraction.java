@@ -18,10 +18,13 @@ public class TextExtraction {
 		
 		textBeforeCleaning = documentTE.extractContentFromDocuments();
 //		System.out.println(textBeforeCleaning);
-		
+		try {
 		textAfterCleaning = cleanFootAndSideNotes(textBeforeCleaning);
 		System.out.println(textAfterCleaning);
 		writeTheContentsToATextFile(textAfterCleaning);
+		}catch(NullPointerException npe) {
+			System.err.println("Please change the (start & end) page numbers to the format of odd-even(consecutive pages)");
+		}
 	}
 
 
@@ -40,7 +43,7 @@ public class TextExtraction {
 			}
 		}
 	
-	protected static String cleanFootAndSideNotes(String text) {
+	protected static String cleanFootAndSideNotes(String text) throws NullPointerException {
 		/* TODO Code to clear Foot and Side notes from extracted text
 		Do pattern matching to find sub strings and remove/extract all contents found after/before it.
 		
