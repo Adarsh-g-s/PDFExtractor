@@ -20,7 +20,7 @@ public class TextExtraction {
 //		System.out.println(textBeforeCleaning);
 		
 		textAfterCleaning = cleanFootAndSideNotes(textBeforeCleaning);
-//		System.out.println(textAfterCleaning);
+		System.out.println(textAfterCleaning);
 		writeTheContentsToATextFile(textAfterCleaning);
 	}
 
@@ -84,17 +84,17 @@ public class TextExtraction {
 			 * Text extraction from the later pages of ISO doc i.e. page#3-4 onwards, always in pairs of odd-even.
 			 */
 			
-			allContentsInBetween = StringUtils.substringBetween(text, Constants.subHeader, Constants.footerPattern3);
+			allContentsInBetween = StringUtils.substringBetween(text, Constants.subHeader, Constants.footerPattern31);
 			
 			//Remove allContentsInBetween from text.
 			
-			allContentsInBetween1 = StringUtils.substringBetween(text, Constants.subHeader, Constants.footerPattern4);
+			allContentsInBetween1 = StringUtils.substringBetween(text, Constants.subHeader, Constants.footerPattern32);
 			allContentsInBetween1 = allContentsInBetween1.replace(allContentsInBetween, "");
 			//Extract only content between the footerPattern3 and subHeader and remove this content from allContentsInBetween1
 			
-			allContentsInBetween2 = StringUtils.substringBetween(allContentsInBetween1, Constants.footerPattern3, Constants.subHeader);
+			allContentsInBetween2 = StringUtils.substringBetween(allContentsInBetween1, Constants.footerPattern31, Constants.subHeader);
 			allContentsInBetween1 = allContentsInBetween1.replace(allContentsInBetween2, "");
-			allContentsInBetween1 = allContentsInBetween1.replace(Constants.subHeader3, "");
+			allContentsInBetween1 = allContentsInBetween1.replace(Constants.subHeader17, "");
 			allContentsInBetween += allContentsInBetween1;
 		}
 		
