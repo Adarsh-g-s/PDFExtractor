@@ -6,7 +6,7 @@ import java.util.Properties;
 
 public class PropertiesHandler {
 
-	public static String getPropertyValue() {
+	public static String getPropertyValue(String propertyName) {
 		Properties property = new Properties();
 		
 		//Fetching data from properties file.
@@ -20,7 +20,7 @@ public class PropertiesHandler {
 		    property.load(file);
 		    
 		 // get the property value and print it 
-		    System.out.println("File location: "+property.getProperty("ISOTSFILE_LOC"));
+//		    System.out.println("File location: "+property.getProperty(propertyName));
 		    
 		}catch (IOException ex) {
 		    ex.printStackTrace();
@@ -34,6 +34,6 @@ public class PropertiesHandler {
 		    }
 		}
 		
-		return property.getProperty("ISOTSFILE_LOC");
+		return property.getProperty(propertyName);
 	}
 }
