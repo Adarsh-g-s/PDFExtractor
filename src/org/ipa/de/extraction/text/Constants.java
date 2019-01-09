@@ -2,7 +2,6 @@ package org.ipa.de.extraction.text;
 
 public class Constants {
 	
-	public static final String FILE_LOC = "/home/rfa-ag/Downloads/TextMining/Dataset/ISO-TS-15066.pdf";
 	public static final String header = "TECHNICAL SPECIFICATION ISO/TS 15066:2016(E)";
 	public static final String subHeader = "ISO/TS 15066:2016(E)";
 	public static final String subHeader2 = "© ISO 2016 – All rights reserved 1ISO/TS 15066:2016(E)";

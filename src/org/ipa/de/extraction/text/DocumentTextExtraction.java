@@ -9,7 +9,8 @@ import org.apache.pdfbox.text.PDFTextStripper;
 public class DocumentTextExtraction {
 	
 	protected String extractContentFromDocuments(){
-		File file = new File(Constants.FILE_LOC);
+		
+		File file = new File(PropertiesHandler.getPropertyValue());
 		String textContentToBeCleaned = null;
 		
 		try {
@@ -33,5 +34,4 @@ public class DocumentTextExtraction {
 	}
 		return textContentToBeCleaned;
 	}
-	
 }

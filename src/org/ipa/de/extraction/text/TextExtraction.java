@@ -16,6 +16,7 @@ public class TextExtraction {
 		String textBeforeCleaning = null;
 		String textAfterCleaning = null;
 		
+		
 		textBeforeCleaning = documentTE.extractContentFromDocuments();
 //		System.out.println(textBeforeCleaning);
 		try {
@@ -36,7 +37,7 @@ public class TextExtraction {
 	    }
 	
 	protected static void writeTheContentsToATextFile(String allContentsInBetween) {
-		  try (PrintWriter out = new PrintWriter(new FileOutputStream(new File("TS15066.txt"), true))) {
+		  try (PrintWriter out = new PrintWriter(new FileOutputStream(new File("TS15066_test.txt"), true))) {
 			    out.println(allContentsInBetween);
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
