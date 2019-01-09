@@ -1,6 +1,6 @@
 package org.ipa.de.extraction.text;
 
-public class Constants {
+public class IsoTSConstants {
 	
 	public static final String header = "TECHNICAL SPECIFICATION ISO/TS 15066:2016(E)";
 	public static final String subHeader = "ISO/TS 15066:2016(E)";

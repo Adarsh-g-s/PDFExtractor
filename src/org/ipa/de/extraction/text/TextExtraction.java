@@ -21,8 +21,8 @@ public class TextExtraction {
 //		System.out.println(textBeforeCleaning);
 		try {
 		textAfterCleaning = cleanFootAndSideNotes(textBeforeCleaning);
-		System.out.println(textAfterCleaning);
-		writeTheContentsToATextFile(textAfterCleaning);
+//		System.out.println(textAfterCleaning);
+//		writeTheContentsToATextFile(textAfterCleaning);
 		}catch(NullPointerException npe) {
 			System.err.println("Please change the (start & end) page numbers to the format of odd-even(consecutive pages)");
 		}
@@ -37,7 +37,7 @@ public class TextExtraction {
 	    }
 	
 	protected static void writeTheContentsToATextFile(String allContentsInBetween) {
-		  try (PrintWriter out = new PrintWriter(new FileOutputStream(new File("TS15066_test.txt"), true))) {
+		  try (PrintWriter out = new PrintWriter(new FileOutputStream(new File("10218.txt"), true))) {
 			    out.println(allContentsInBetween);
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
@@ -57,8 +57,8 @@ public class TextExtraction {
 		
 //		System.out.println(text);
 		//Check if the TEXT contains the header substring
-		
-		if(text.contains(Constants.header)) {
+		//Code to extract contents from ISO TS
+		if(text.contains(IsoTSConstants.header)) {
 			System.out.println("Match found! ");
 //			System.out.println(isContain(text, Constants.subHeader));
 //			System.out.println(isContain(text, Constants.footerPattern1));
@@ -68,16 +68,16 @@ public class TextExtraction {
 			 * Text extraction from the first 2 pages of ISO doc i.e. page#1-2.
 			 */
 
-			allContentsInBetween = StringUtils.substringBetween(text, "\n"  , Constants.header);
-			allContentsInBetween1 = StringUtils.substringBetween(text, Constants.subHeader, Constants.footerPattern2);
+			allContentsInBetween = StringUtils.substringBetween(text, "\n"  , IsoTSConstants.header);
+			allContentsInBetween1 = StringUtils.substringBetween(text, IsoTSConstants.subHeader, IsoTSConstants.footerPattern2);
 
-			allContentsInBetween2 = StringUtils.substringBetween(allContentsInBetween1, Constants.footerPattern1, Constants.subHeader);
+			allContentsInBetween2 = StringUtils.substringBetween(allContentsInBetween1, IsoTSConstants.footerPattern1, IsoTSConstants.subHeader);
 			
 			allContentsInBetween1=allContentsInBetween1.replace(allContentsInBetween2, "");
-			allContentsInBetween1=allContentsInBetween1.replace(Constants.subHeader2,"");
+			allContentsInBetween1=allContentsInBetween1.replace(IsoTSConstants.subHeader2,"");
 			allContentsInBetween += allContentsInBetween1;
-			
-		}else if(text.contains(Constants.subHeader)) {
+			//Code to extract contents from ISO TS	
+		}else if(text.contains(IsoTSConstants.subHeader)) {
 			System.out.println("Match found! ");
 			/* To ensure this code works for new pages change/add 3 variables in Constants.java
 			 * 1. footerPatternOdd#
@@ -88,18 +88,56 @@ public class TextExtraction {
 			 * Text extraction from the later pages of ISO doc i.e. page#3-4 onwards, always in pairs of odd-even.
 			 */
 			
-			allContentsInBetween = StringUtils.substringBetween(text, Constants.subHeader, Constants.footerPattern31);
+			allContentsInBetween = StringUtils.substringBetween(text, IsoTSConstants.subHeader, IsoTSConstants.footerPattern31);
 			
 			//Remove allContentsInBetween from text.
 			
-			allContentsInBetween1 = StringUtils.substringBetween(text, Constants.subHeader, Constants.footerPattern32);
+			allContentsInBetween1 = StringUtils.substringBetween(text, IsoTSConstants.subHeader, IsoTSConstants.footerPattern32);
 			allContentsInBetween1 = allContentsInBetween1.replace(allContentsInBetween, "");
 			//Extract only content between the footerPattern3 and subHeader and remove this content from allContentsInBetween1
 			
-			allContentsInBetween2 = StringUtils.substringBetween(allContentsInBetween1, Constants.footerPattern31, Constants.subHeader);
+			allContentsInBetween2 = StringUtils.substringBetween(allContentsInBetween1, IsoTSConstants.footerPattern31, IsoTSConstants.subHeader);
 			allContentsInBetween1 = allContentsInBetween1.replace(allContentsInBetween2, "");
-			allContentsInBetween1 = allContentsInBetween1.replace(Constants.subHeader17, "");
+			allContentsInBetween1 = allContentsInBetween1.replace(IsoTSConstants.subHeader17, "");
 			allContentsInBetween += allContentsInBetween1;
+			//Code to extract contents from ISO 10218-1
+		}else if(text.contains(IsoConstants.header)) {
+			System.out.println("Match found! ");
+			
+			allContentsInBetween = StringUtils.substringBetween(text, IsoConstants.footerPattern1  , IsoConstants.sideNote1);
+			
+			allContentsInBetween1 = StringUtils.substringBetween(text, IsoConstants.footerPattern2, IsoConstants.sideNote1);
+			allContentsInBetween += allContentsInBetween1;
+			System.out.println(allContentsInBetween);
+			//Code to extract contents from ISO 10218-1
+		}else if(text.contains(IsoConstants.subHeader)) {
+			
+			System.out.println("I am here!");
+			
+			allContentsInBetween = StringUtils.substringBetween(text, IsoConstants.footerPattern5  , IsoConstants.sideNote1);
+			
+			allContentsInBetween1 = StringUtils.substringBetween(text, IsoConstants.footerPattern6, IsoConstants.sideNote1);
+			allContentsInBetween += allContentsInBetween1;
+			System.out.println(allContentsInBetween);
+			//Code to extract contents from ISO 10218-2
+		}else if(text.contains(IsoConstants.header2)) {
+			System.out.println("Match found! ");
+			
+			allContentsInBetween = StringUtils.substringBetween(text, IsoConstants.footerPattern1  , IsoConstants.sideNote3);
+			
+			allContentsInBetween1 = StringUtils.substringBetween(text, IsoConstants.footerPattern2, IsoConstants.sideNote3);
+			allContentsInBetween += allContentsInBetween1;
+			System.out.println(allContentsInBetween);
+			//Code to extract contents from ISO 10218-2
+		}else if(text.contains(IsoConstants.subHeader2)) {
+			
+			System.out.println("I am here!");
+			
+			allContentsInBetween = StringUtils.substringBetween(text, IsoConstants.footerPattern5  , IsoConstants.sideNote3);
+			
+			allContentsInBetween1 = StringUtils.substringBetween(text, IsoConstants.footerPattern6, IsoConstants.sideNote3);
+			allContentsInBetween += allContentsInBetween1;
+			System.out.println(allContentsInBetween);
 		}
 		
 		/*Remember for subsequent pages the complete header is not present, only "ISO/TS 15066:2016(E)"
