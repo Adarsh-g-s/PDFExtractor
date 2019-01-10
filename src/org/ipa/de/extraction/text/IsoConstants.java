@@ -31,9 +31,8 @@ public class IsoConstants {
 			singleFooterPatternMap.put("footerPattern"+i, "© ISO 2011 – All rights reserved "+i);
 			++i;
 			singleFooterPatternMap.put("footerPattern"+i, i+" © ISO 2011 – All rights reserved");
-			
 		
-	}
+		}
 	}
 	
 	

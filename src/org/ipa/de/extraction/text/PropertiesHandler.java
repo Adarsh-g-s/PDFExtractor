@@ -19,8 +19,8 @@ public class PropertiesHandler {
 		    // load a properties file
 		    property.load(file);
 		    
-		 // get the property value and print it 
-//		    System.out.println("File location: "+property.getProperty(propertyName));
+		    // get the property value and print it 
+		    // System.out.println("File location: "+property.getProperty(propertyName));
 		    
 		}catch (IOException ex) {
 		    ex.printStackTrace();

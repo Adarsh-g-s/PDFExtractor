@@ -44,62 +44,40 @@ public class TextExtraction {
 			}
 		}
 	
+	/* Code to clear Foot and Side notes from extracted text
+	Do pattern matching to find sub strings and remove/extract all contents found after/between it.
+	@return entire document content of the corresponding ISO type after data cleaning
+	*/
 	protected static String cleanFootAndSideNotes(String text) throws NullPointerException {
-		/* TODO Code to clear Foot and Side notes from extracted text
-		Do pattern matching to find sub strings and remove/extract all contents found after/before it.
 		
-		2 pages at a time.
-		
-		*/
 		String allContentsInBetween = "";
 		String allContentsInBetween1 = "";
-		String allContentsInBetween2 = "";
 		
-//		System.out.println(text);
-		//Check if the TEXT contains the header substring
+		//Check if the TEXT contains the header substring of ISO TS
+		
 		//Code to extract contents from ISO TS
+		
 		if(text.contains(IsoTSConstants.header)) {
 			System.out.println("Match found! ");
-//			System.out.println(isContain(text, Constants.subHeader));
-//			System.out.println(isContain(text, Constants.footerPattern1));
-//			System.out.println(isContain(text, Constants.footerPattern2));
-			
-			/*
-			 * Text extraction from the first 2 pages of ISO doc i.e. page#1-2.
-			 */
-
-			allContentsInBetween = StringUtils.substringBetween(text, "\n"  , IsoTSConstants.header);
-			allContentsInBetween1 = StringUtils.substringBetween(text, IsoTSConstants.subHeader, IsoTSConstants.footerPattern2);
-
-			allContentsInBetween2 = StringUtils.substringBetween(allContentsInBetween1, IsoTSConstants.footerPattern1, IsoTSConstants.subHeader);
-			
-			allContentsInBetween1=allContentsInBetween1.replace(allContentsInBetween2, "");
-			allContentsInBetween1=allContentsInBetween1.replace(IsoTSConstants.subHeader2,"");
-			allContentsInBetween += allContentsInBetween1;
-			//Code to extract contents from ISO TS	
-		}else if(text.contains(IsoTSConstants.subHeader)) {
-			System.out.println("Match found! ");
-			/* To ensure this code works for new pages change/add 3 variables in Constants.java
-			 * 1. footerPatternOdd#
-			 * 2. footerPatternEven#
-			 * 3. subHeader#
-			 * similar to already existing ones.
-			 * 
-			 * Text extraction from the later pages of ISO doc i.e. page#3-4 onwards, always in pairs of odd-even.
-			 */
-			
-			allContentsInBetween = StringUtils.substringBetween(text, IsoTSConstants.subHeader, IsoTSConstants.footerPattern31);
-			
-			//Remove allContentsInBetween from text.
-			
-			allContentsInBetween1 = StringUtils.substringBetween(text, IsoTSConstants.subHeader, IsoTSConstants.footerPattern32);
-			allContentsInBetween1 = allContentsInBetween1.replace(allContentsInBetween, "");
-			//Extract only content between the footerPattern3 and subHeader and remove this content from allContentsInBetween1
-			
-			allContentsInBetween2 = StringUtils.substringBetween(allContentsInBetween1, IsoTSConstants.footerPattern31, IsoTSConstants.subHeader);
-			allContentsInBetween1 = allContentsInBetween1.replace(allContentsInBetween2, "");
-			allContentsInBetween1 = allContentsInBetween1.replace(IsoTSConstants.subHeader17, "");
-			allContentsInBetween += allContentsInBetween1;
+			//Subtracting the last page given by 6 in order to clean the first 6 pages of ISO docs
+			for(int i=1;i<=(Integer.parseInt(PropertiesHandler.getPropertyValue("END_PAGE"))-6);i++) {
+				//Only for the I page, use this methodology
+				
+				if(i==1) {
+					allContentsInBetween = StringUtils.substringBetween(text, "\n"  , IsoTSConstants.header);
+					++i;
+					//One time replacement of garbage Strings
+					text = text.replace(IsoTSConstants.subHeader, "");
+					text = text.replace(IsoTSConstants.sideNote1, "");
+				}
+				//From II page onwards, to extract contents
+				allContentsInBetween1 = StringUtils.substringBetween(text, IsoTSConstants.sideNote2, IsoTSConstants.tsFooterPatternMap.get("footerPattern"+i));
+				
+				allContentsInBetween += allContentsInBetween1;
+				//replace every time single occurrence of this subString
+				text = text.replaceFirst(IsoTSConstants.sideNote2, "");
+			}
+			System.out.println(allContentsInBetween);
 			
 			//Code to extract contents from ISO 10218-1
 		}else if(text.contains(IsoConstants.header)) {
@@ -118,7 +96,7 @@ public class TextExtraction {
 			//Code to extract contents from ISO 10218-2
 		}else if(text.contains(IsoConstants.header2)) {
 			System.out.println("Match found! ");
-			
+			//Subtracting the last page given by 6 in order to clean the first 6 pages of ISO docs
 			for(int i=1;i<=(Integer.parseInt(PropertiesHandler.getPropertyValue("END_PAGE"))-6);i++) {
 				
 				allContentsInBetween += StringUtils.substringBetween(text, IsoConstants.singleFooterPatternMap.get("footerPattern"+i), IsoConstants.sideNote3);
@@ -133,9 +111,6 @@ public class TextExtraction {
 			System.out.println(allContentsInBetween);
 		}
 		
-		/*Remember for subsequent pages the complete header is not present, only "ISO/TS 15066:2016(E)"
-		Check for this pattern, remove it and keep the other contents.
-		*/
 		return allContentsInBetween;
 		
 	}
