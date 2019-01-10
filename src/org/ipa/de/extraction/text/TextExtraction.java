@@ -14,7 +14,7 @@ public class TextExtraction {
 		
 		DocumentTextExtraction documentTE = new DocumentTextExtraction();
 		String textBeforeCleaning = null;
-		String textAfterCleaning = null;
+		String textAfterCleaning = "";
 		
 		
 		textBeforeCleaning = documentTE.extractContentFromDocuments();
@@ -22,7 +22,7 @@ public class TextExtraction {
 		try {
 		textAfterCleaning = cleanFootAndSideNotes(textBeforeCleaning);
 //		System.out.println(textAfterCleaning);
-//		writeTheContentsToATextFile(textAfterCleaning);
+		writeTheContentsToATextFile(textAfterCleaning);
 		}catch(NullPointerException npe) {
 			System.err.println("Please change the (start & end) page numbers to the format of odd-even(consecutive pages)");
 		}
@@ -37,7 +37,7 @@ public class TextExtraction {
 	    }
 	
 	protected static void writeTheContentsToATextFile(String allContentsInBetween) {
-		  try (PrintWriter out = new PrintWriter(new FileOutputStream(new File("10218.txt"), true))) {
+		  try (PrintWriter out = new PrintWriter(new FileOutputStream(new File(PropertiesHandler.getPropertyValue("OutFile")), true))) {
 			    out.println(allContentsInBetween);
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
@@ -51,9 +51,9 @@ public class TextExtraction {
 		2 pages at a time.
 		
 		*/
-		String allContentsInBetween = null;
-		String allContentsInBetween1 = null;
-		String allContentsInBetween2 = null;
+		String allContentsInBetween = "";
+		String allContentsInBetween1 = "";
+		String allContentsInBetween2 = "";
 		
 //		System.out.println(text);
 		//Check if the TEXT contains the header substring
@@ -100,43 +100,36 @@ public class TextExtraction {
 			allContentsInBetween1 = allContentsInBetween1.replace(allContentsInBetween2, "");
 			allContentsInBetween1 = allContentsInBetween1.replace(IsoTSConstants.subHeader17, "");
 			allContentsInBetween += allContentsInBetween1;
+			
 			//Code to extract contents from ISO 10218-1
 		}else if(text.contains(IsoConstants.header)) {
 			System.out.println("Match found! ");
-			
-			allContentsInBetween = StringUtils.substringBetween(text, IsoConstants.footerPattern1  , IsoConstants.sideNote1);
-			
-			allContentsInBetween1 = StringUtils.substringBetween(text, IsoConstants.footerPattern2, IsoConstants.sideNote1);
-			allContentsInBetween += allContentsInBetween1;
+			//Subtracting the last page given by 6 in order to clean the first 6 pages of ISO docs
+			for(int i=1;i<=(Integer.parseInt(PropertiesHandler.getPropertyValue("END_PAGE"))-6);i++) {
+				
+				allContentsInBetween += StringUtils.substringBetween(text, IsoConstants.singleFooterPatternMap.get("footerPattern"+i), IsoConstants.sideNote1);
+				++i;
+				allContentsInBetween1 = StringUtils.substringBetween(text, IsoConstants.singleFooterPatternMap.get("footerPattern"+i), IsoConstants.sideNote1);
+				allContentsInBetween += allContentsInBetween1;
+				
+			}
 			System.out.println(allContentsInBetween);
-			//Code to extract contents from ISO 10218-1
-		}else if(text.contains(IsoConstants.subHeader)) {
 			
-			System.out.println("I am here!");
-			
-			allContentsInBetween = StringUtils.substringBetween(text, IsoConstants.footerPattern5  , IsoConstants.sideNote1);
-			
-			allContentsInBetween1 = StringUtils.substringBetween(text, IsoConstants.footerPattern6, IsoConstants.sideNote1);
-			allContentsInBetween += allContentsInBetween1;
-			System.out.println(allContentsInBetween);
 			//Code to extract contents from ISO 10218-2
 		}else if(text.contains(IsoConstants.header2)) {
 			System.out.println("Match found! ");
 			
-			allContentsInBetween = StringUtils.substringBetween(text, IsoConstants.footerPattern1  , IsoConstants.sideNote3);
-			
-			allContentsInBetween1 = StringUtils.substringBetween(text, IsoConstants.footerPattern2, IsoConstants.sideNote3);
-			allContentsInBetween += allContentsInBetween1;
-			System.out.println(allContentsInBetween);
-			//Code to extract contents from ISO 10218-2
-		}else if(text.contains(IsoConstants.subHeader2)) {
-			
-			System.out.println("I am here!");
-			
-			allContentsInBetween = StringUtils.substringBetween(text, IsoConstants.footerPattern5  , IsoConstants.sideNote3);
-			
-			allContentsInBetween1 = StringUtils.substringBetween(text, IsoConstants.footerPattern6, IsoConstants.sideNote3);
-			allContentsInBetween += allContentsInBetween1;
+			for(int i=1;i<=(Integer.parseInt(PropertiesHandler.getPropertyValue("END_PAGE"))-6);i++) {
+				
+				allContentsInBetween += StringUtils.substringBetween(text, IsoConstants.singleFooterPatternMap.get("footerPattern"+i), IsoConstants.sideNote3);
+				++i;
+				//Extra condition to ensure null doesnt get printed when the last page# is odd. 
+				if(i<=(Integer.parseInt(PropertiesHandler.getPropertyValue("END_PAGE"))-6)) {
+					allContentsInBetween1 = StringUtils.substringBetween(text, IsoConstants.singleFooterPatternMap.get("footerPattern"+i), IsoConstants.sideNote3);
+				}
+				allContentsInBetween += allContentsInBetween1;
+				allContentsInBetween1 = "";
+			}	
 			System.out.println(allContentsInBetween);
 		}
 		
