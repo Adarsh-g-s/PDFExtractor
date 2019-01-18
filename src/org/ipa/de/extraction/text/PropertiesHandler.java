@@ -36,4 +36,35 @@ public class PropertiesHandler {
 		
 		return property.getProperty(propertyName);
 	}
+	
+	public static String getSectionPropertyValue(String propertyName) {
+		Properties property = new Properties();
+		
+		//Fetching data from properties file.
+		FileInputStream file = null;
+		
+		try {
+
+			file = new FileInputStream(System.getProperty("user.dir")+"/src/resources/section.properties");
+
+		    // load a properties file
+		    property.load(file);
+		    
+		    // get the property value and print it 
+		    // System.out.println("File location: "+property.getProperty(propertyName));
+		    
+		}catch (IOException ex) {
+		    ex.printStackTrace();
+		} finally {
+		    if (file != null) {
+		        try {
+		        	file.close();
+		        } catch (IOException e) {
+		            e.printStackTrace();
+		        }
+		    }
+		}
+		
+		return property.getProperty(propertyName);
+	}
 }

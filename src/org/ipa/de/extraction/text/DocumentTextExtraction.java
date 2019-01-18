@@ -2,6 +2,9 @@ package org.ipa.de.extraction.text;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
@@ -25,9 +28,23 @@ public class DocumentTextExtraction {
 			document.close();
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 	}
 		return textContentToBeCleaned;
+	}
+	
+	protected String extractContentFromTextFile() {
+		
+		String textContent = "";
+		try {
+			String path = PropertiesHandler.getSectionPropertyValue("ISOTXTFILE_LOC");
+			Path pathToFile = FileSystems.getDefault().getPath(path);
+			textContent = new String(Files.readAllBytes(pathToFile));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return textContent;
+		
 	}
 }

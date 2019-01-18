@@ -13,9 +13,14 @@ public class TextExtraction {
 	public static void main(String[] args) {
 		
 		DocumentTextExtraction documentTE = new DocumentTextExtraction();
+		SectionTextExtraction sectionTE = new SectionTextExtraction();
 		String textBeforeCleaning = null;
 		String textAfterCleaning = "";
+		String sectionWiseText = "";
 		
+		/*
+		 * Extract contents from PDF to text file.
+		 */
 		
 		textBeforeCleaning = documentTE.extractContentFromDocuments();
 //		System.out.println(textBeforeCleaning);
@@ -26,6 +31,17 @@ public class TextExtraction {
 		}catch(NullPointerException npe) {
 			System.err.println("Please change the (start & end) page numbers to the format of odd-even(consecutive pages)");
 		}
+		
+		/*
+		 * Extract section wise content from text file.
+		 */
+		
+		textAfterCleaning = documentTE.extractContentFromTextFile();
+		sectionWiseText = sectionTE.sectionIdentifier(textAfterCleaning);
+//		textAfterCleaning = sectionTE.sectionIdentifier(text);
+//		System.out.println(textAfterCleaning);
+		System.out.println(sectionWiseText);
+		writeTheSectionContentsToATextFile(sectionWiseText);
 	}
 
 
@@ -38,6 +54,14 @@ public class TextExtraction {
 	
 	protected static void writeTheContentsToATextFile(String allContentsInBetween) {
 		  try (PrintWriter out = new PrintWriter(new FileOutputStream(new File(PropertiesHandler.getPropertyValue("OutFile")), true))) {
+			    out.println(allContentsInBetween);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
+	
+	protected static void writeTheSectionContentsToATextFile(String allContentsInBetween) {
+		  try (PrintWriter out = new PrintWriter(new FileOutputStream(new File(PropertiesHandler.getSectionPropertyValue("OutFile")), true))) {
 			    out.println(allContentsInBetween);
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
