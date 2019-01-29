@@ -14,9 +14,13 @@ public class TextExtraction {
 		
 		DocumentTextExtraction documentTE = new DocumentTextExtraction();
 		SectionTextExtraction sectionTE = new SectionTextExtraction();
+		IndexTextExtraction indexTE = new IndexTextExtraction();
 		String textBeforeCleaning = null;
 		String textAfterCleaning = "";
 		String sectionWiseText = "";
+		String indexContents = "";
+		
+		
 		
 		/*
 		 * Extract contents from PDF to text file.
@@ -24,6 +28,13 @@ public class TextExtraction {
 		
 		textBeforeCleaning = documentTE.extractContentFromDocuments();
 //		System.out.println(textBeforeCleaning);
+		/*
+		 * Extract index names from the ISO documents and populate it to a txt file 
+		 */
+		indexContents = indexTE.extractIndexContents(textBeforeCleaning);
+		System.out.println(indexContents);
+		writeTheContentsToATextFile(indexContents);
+		
 		try {
 		textAfterCleaning = cleanFootAndSideNotes(textBeforeCleaning);
 //		System.out.println(textAfterCleaning);
@@ -43,7 +54,6 @@ public class TextExtraction {
 		System.out.println(sectionWiseText);
 		writeTheSectionContentsToATextFile(sectionWiseText);
 	}
-
 
 	protected static boolean isContain(String source, String subItem){
 	         String pattern = "\\b"+subItem+"\\b";

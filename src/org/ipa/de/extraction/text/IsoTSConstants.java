@@ -7,6 +7,8 @@ public class IsoTSConstants {
 	
 	public static final String header = "TECHNICAL SPECIFICATION ISO/TS 15066:2016(E)";
 	public static final String subHeader = "\n"+"ISO/TS 15066:2016(E)"+"\n";
+	public static final String indexHeader = "ISO/TS 15066:2016(E)";
+	public static final String tsFooterIndex = "© ISO 2016 – All rights reserved iii";
 	
 	
 	  /*Constants for ISO TS 15066
