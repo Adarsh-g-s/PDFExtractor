@@ -32,10 +32,10 @@ public class TextExtraction {
 		 * Extract index names from the ISO documents and populate it to a txt file 
 		 */
 		indexContents = indexTE.extractIndexContents(textBeforeCleaning);
-		System.out.println(indexContents);
+//		System.out.println(indexContents);
 		writeTheContentsToATextFile(indexContents);
 		
-		try {
+		/*try {
 		textAfterCleaning = cleanFootAndSideNotes(textBeforeCleaning);
 //		System.out.println(textAfterCleaning);
 		writeTheContentsToATextFile(textAfterCleaning);
@@ -43,16 +43,16 @@ public class TextExtraction {
 			System.err.println("Please change the (start & end) page numbers to the format of odd-even(consecutive pages)");
 		}
 		
-		/*
+		
 		 * Extract section wise content from text file.
-		 */
+		 
 		
 		textAfterCleaning = documentTE.extractContentFromTextFile();
 		sectionWiseText = sectionTE.sectionIdentifier(textAfterCleaning);
 //		textAfterCleaning = sectionTE.sectionIdentifier(text);
 //		System.out.println(textAfterCleaning);
 		System.out.println(sectionWiseText);
-		writeTheSectionContentsToATextFile(sectionWiseText);
+		writeTheSectionContentsToATextFile(sectionWiseText);*/
 	}
 
 	protected static boolean isContain(String source, String subItem){
