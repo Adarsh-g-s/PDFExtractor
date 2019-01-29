@@ -4,28 +4,28 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class IsoTSConstants {
-	
+
 	public static final String header = "TECHNICAL SPECIFICATION ISO/TS 15066:2016(E)";
 	public static final String subHeader = "\n"+"ISO/TS 15066:2016(E)"+"\n";
 	public static final String indexHeader = "ISO/TS 15066:2016(E)";
 	public static final String tsFooterIndex = "© ISO 2016 – All rights reserved iii";
-	
-	
-	  /*Constants for ISO TS 15066
+
+
+	/*Constants for ISO TS 15066
 	  Hash map to store odd and even foot note pages*/
-	 
+
 	public static final Map<String, String> tsFooterPatternMap = new HashMap<String, String>();
 	static{
-		
+
 		for(int i=1;i<=Integer.parseInt(PropertiesHandler.getPropertyValue("END_PAGE"));i++) {
-		
+
 			tsFooterPatternMap.put("footerPattern"+i, "© ISO 2016 – All rights reserved "+i);
 			++i;
 			tsFooterPatternMap.put("footerPattern"+i, i+" © ISO 2016 – All rights reserved");
-		
+
 		}
 	}
-	
+
 	public static final String sideNote1 = "B55EB1B3C7662F79D1B59483A53B9F2F82C98BEEB79395946AC566B6CDF0148328DA7E29C2DB4A9C98A56EB84751C09DF42982F151E73615912024BE33C078D0313FF49141000AFE4F2B010705BB25778CEF0775AAABBB96E5706ADD5D94523CEC09BC81B38ED5B3A256A131A197AE3E87";
 	public static final String sideNote2 = "N\n" + 
 			"o\n" + 
