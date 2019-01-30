@@ -12,8 +12,7 @@ public class SectionTextExtraction {
 
 	protected String sectionIdentifier(String text) {
 
-
-		String allContentsInBetween = StringUtils.substringBetween(text, PropertiesHandler.getSectionPropertyValue("START_SECTION"),PropertiesHandler.getSectionPropertyValue("END_SECTION"));
+		String allContentsInBetween = StringUtils.substringBetween(text, PropertiesHandler.getSectionPropertyValue("START_SECTION"), PropertiesHandler.getSectionPropertyValue("END_SECTION"));
 
 		return allContentsInBetween;
 	}

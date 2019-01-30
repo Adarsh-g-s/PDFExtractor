@@ -51,6 +51,9 @@ public class TextExtraction {
 		sectionWiseText = sectionTE.sectionIdentifier(textAfterCleaning);
 		//		textAfterCleaning = sectionTE.sectionIdentifier(text);
 		//		System.out.println(textAfterCleaning);
+		if(sectionWiseText == null) {
+			System.out.println("Please check that there is no addtional space in START or END section in section.properties file");
+		}
 		System.out.println(sectionWiseText);
 		writeTheSectionContentsToATextFile(sectionWiseText);
 	}
